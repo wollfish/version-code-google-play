@@ -15,7 +15,7 @@ export interface EditOptions {
     applicationId: string;
 }
 
-export async function getLatestReleaseVersionCode(options: EditOptions): Promise<string | undefined> {
+export async function getLatestReleaseVersionCode(options: EditOptions): Promise<number | undefined> {
     // Create a new Edit
     core.info(`Getting the latest version of this application`)
     const appEdit = await androidPublisher.edits.insert({
@@ -23,13 +23,19 @@ export async function getLatestReleaseVersionCode(options: EditOptions): Promise
         packageName: options.applicationId
     });
 
-    const bundles = await androidPublisher.edits.bundles.list({
+    const bundleResponse = await androidPublisher.edits.bundles.list({
+        auth: options.auth,
         // Identifier of the edit.
         editId: appEdit.data.id!,
         // Package name of the app.
         packageName: options.applicationId,
     });
-    // Validate the given track
-    core.info(`Validating track '${bundles.data}'`)
-    return Promise.resolve(options.applicationId);
+    const versionCode = Math.max(...bundleResponse.data.bundles!!.map((bundle) => bundle.versionCode!!));
+    await androidPublisher.edits.delete({
+        auth: options.auth,
+        editId: appEdit.data.id!,
+        packageName: options.applicationId
+    });
+    core.info(`Obtained version code ${versionCode}`)
+    return Promise.resolve(versionCode);
 }

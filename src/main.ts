@@ -44,6 +44,7 @@ async function run() {
             auth: authClient,
             applicationId: packageName,
         });
+        core.setOutput("versionCode", result)
     } catch (error: any) {
         core.setFailed(error.message)
     }

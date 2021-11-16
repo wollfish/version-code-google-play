@@ -6,13 +6,13 @@ branding:
   color: 'orange'
 inputs:
   serviceAccountJson:
-    description: "The service account json private key file to authorize the upload request"
+    description: "The service account json private key file to authorize the request"
     required: false
   serviceAccountJsonPlainText:
-    description: "The raw json text of the service account private key to authorize the upload request"
+    description: "The raw json text of the service account private key to authorize the request"
     required: false
   packageName:
-    description: "The package name, or Application Id, of the app you are uploading"
+    description: "The package name, or Application Id, of the app you are trying to retrieve version of"
     required: true
 outputs:
   versionCode:
