@@ -1,1 +1,1 @@
-# version-code-google-play
+# Retrieve version code of latest Android Release from Play Store

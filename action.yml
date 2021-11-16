@@ -1,0 +1,22 @@
+name: 'Retrieve version code of latest Android Release from Play Store'
+description: "An action to retrieve version code of latest Android Release from Play Store"
+author: 'jindalrj'
+branding:
+  icon: 'truck'
+  color: 'orange'
+inputs:
+  serviceAccountJson:
+    description: "The service account json private key file to authorize the upload request"
+    required: false
+  serviceAccountJsonPlainText:
+    description: "The raw json text of the service account private key to authorize the upload request"
+    required: false
+  packageName:
+    description: "The package name, or Application Id, of the app you are uploading"
+    required: true
+outputs:
+  versionCode:
+    description: "Obtained version code"
+runs:
+  using: 'node12'
+  main: 'lib/index.js'
